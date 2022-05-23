@@ -1,29 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CSSTransitionGroup } from 'react-transition-group';
-import twitterImage from "../images/pages/index/return_btn_tw.png"; 
+import twitterImage from "../../images/pages/index/return_btn_tw.png"; 
+import { useRecoilState } from "recoil";
 
+import { questionCurrentIDState } from '../../state/question'
 
-function Mistake(props) {
-  return(
-    <CSSTransitionGroup
-      className="container mistake"
-      component="div"
-      transitionName="fade"
-      transitionEnterTimeout={800}
-      transitionLeaveTimeout={500}
-      transitionAppear
-      transitionAppearTimeout={500}
-    >
+import { getMistakeById } from "../../api/quiz.mistake";
+
+function _Body() {
+  const [ currentQuestion ] = useRecoilState(questionCurrentIDState);
+  const mistake = getMistakeById(currentQuestion)
+
+  return (
+    <>
       <div className="mistake__heading">
         <p>Bad luck!
-          <br/><span className="animateion--neon">{props.quizMistakeCount}</span> stage <span className="text-logo--racket">🏓</span>
+          <br/><span className="animateion--neon">{mistake.count}</span> stage <span className="text-logo--racket">🏓</span>
           <br/>
         </p>
       </div>
       <div className="mistake__body">
         <p className="text">
-          {props.quizMistakeText}
+          {mistake.text}
         </p>
         <div className="appeal" data-appeal>
             <div className="appeal__link" data-appeal-last>
@@ -38,13 +37,26 @@ function Mistake(props) {
             </div>
           </div>
       </div>
+      </>
+  )
+}
+
+
+function Mistake() {
+  return(
+    <CSSTransitionGroup
+      className="container mistake"
+      component="div"
+      transitionName="fade"
+      transitionEnterTimeout={800}
+      transitionLeaveTimeout={500}
+      transitionAppear
+      transitionAppearTimeout={500}
+    >
+      <_Body />
     </CSSTransitionGroup>
   ); 
 }
 
-Mistake.propTypes = {
-  quizMistakeText: PropTypes.string.isRequired,
-  quizMistakeCount: PropTypes.string.isRequired
-};
 
 export default Mistake;

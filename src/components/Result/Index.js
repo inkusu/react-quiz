@@ -1,20 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group';
-import twitterImage from "../images/pages/index/return_btn_tw.png"; 
+import twitterImage from "../../images/pages/index/return_btn_tw.png"; 
 
-
-function Result(props) {
-  return (
-    <CSSTransitionGroup
-    className="container result"
-    component="div"
-    transitionName="fade"
-    transitionEnterTimeout={800}
-    transitionLeaveTimeout={500}
-    transitionAppear
-    transitionAppearTimeout={500}
-  >
+function _Body() {
+return (
+  <>
     <div className="result__heading">
       <p>Winning <br/><span className="animateion--neon">The</span> Game
         <span className="text-logo--racket">🏓</span>
@@ -38,13 +28,25 @@ function Result(props) {
           </div>
         </div>
     </div>
+  </>
+  )
+}
+
+function Result(props) {
+  return (
+    <CSSTransitionGroup
+    className="container result"
+    component="div"
+    transitionName="fade"
+    transitionEnterTimeout={800}
+    transitionLeaveTimeout={500}
+    transitionAppear
+    transitionAppearTimeout={500}
+  >
+    <_Body />
   </CSSTransitionGroup>
   );
   
 }
-
-Result.propTypes = {
-  quizResult: PropTypes.string.isRequired
-};
 
 export default Result;
